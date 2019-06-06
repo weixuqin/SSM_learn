@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- UserSErvice 的创建权交给了 Spring -->
+    <bean id="userService" class="com.test.ioc.demo1.UserServiceImpl">
+        <!-- 设置属性 -->
+        <property name="name" value="李四"></property>
+    </bean>
+
+    <!-- Bean 的实例化的三种方式 -->
+    <!-- 第一种：无参构造器的方式 -->
+    <!--<bean id="bean1" class="com.test.ioc.demo2.Bean1" />-->
+    <!-- 第二种：静态工厂的方式 -->
+    <!--<bean id="bean2" class="com.test.ioc.demo2.Bean2Factory" factory-method="createBean2" />-->
+    <!-- 第三种：实例工厂的方式：由于不是静态方法，需要先有工厂的实例 -->
+    <bean id="bean3Factory" class="com.test.ioc.demo2.Bean3Factory" />
+    <bean id="bean3" factory-bean="bean3Factory" factory-method="createBean3" />
+
+</beans>

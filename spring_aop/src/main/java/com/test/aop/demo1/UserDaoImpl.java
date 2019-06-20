@@ -1,6 +1,6 @@
 package com.test.aop.demo1;
 
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
 
     public void save() {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 配置目标类 -->
+    <bean id="studentDao" class="com.test.aop.demo3.StudentDaoImpl" />
+
+    <!-- 前置通知类型 -->
+    <bean id="myBeforeAdvice" class="com.test.aop.demo3.MyBeforeAdvice" />
+
+    <!-- Spring 的 AOP 产生代理对象 -->
+    <bean id="studentDaoProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!-- 配置目标类 -->
+        <property name="target" ref="studentDao" />
+        <!-- 实现的接口 -->
+        <property name="proxyInterfaces" value="com.test.aop.demo3.StudentDao" />
+        <!-- 采用拦截的名称 -->
+        <!-- 注意这个地方使用 value -->
+        <property name="interceptorNames" value="myBeforeAdvice" />
+        <!-- 默认使用 jdk 动态代理，使用下列语句更改为 CGLib 生成代理 -->
+        <property name="optimize" value="true" />
+    </bean>
+
+</beans>

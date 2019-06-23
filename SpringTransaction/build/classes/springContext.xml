@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd   
+    http://www.springframework.org/schema/tx     
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">  
+    
+    
+	<!-- 配置数据源 -->  
+	<!-- #DBCP数据库连接池配置属性详细内容可参考官网描述：
+       #http://commons.apache.org/proper/commons-dbcp/configuration.html 
+       -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">  
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />  
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/test" />  
+        <property name="username" value="root" />  
+        <property name="password" value="mysql" />   
+    </bean>  
+      
+    <!-- jdbc事务管理器 -->  
+    <bean id="transactionManager"  
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource" />	
+    </bean>  
+    <!--事务模板 -->  
+    <bean id="transactionTemplate"  
+        class="org.springframework.transaction.support.TransactionTemplate">  
+        <property name="transactionManager" ref="transactionManager" />  
+        
+        <!--ISOLATION_DEFAULT 表示由使用的数据库决定  -->  
+        <property name="isolationLevelName" value="ISOLATION_DEFAULT"/>  
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>  
+        <!-- <property name="timeout" value="30"/> -->  
+    </bean>  
+    <!-- 启动使用注解实现声明式事务管理的支持  
+    <tx:annotation-driven transaction-manager="txManager" /> -->  
+</beans>  
